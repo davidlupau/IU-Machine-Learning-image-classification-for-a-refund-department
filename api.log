@@ -1,0 +1,50 @@
+2024-12-18 22:45:13,906 - INFO - Model and processor initialized successfully
+2024-12-18 23:11:08,399 - INFO - Model and processor initialized successfully
+2024-12-18 23:11:12,943 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-18 23:11:12,943 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-18 23:26:03,985 - INFO - Model and processor initialized successfully
+2024-12-18 23:26:04,004 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-18 23:26:04,004 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-18 23:27:18,417 - ERROR - Prediction failed: Expected 2D array, got 1D array instead:
+array=[nan].
+Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
+2024-12-18 23:27:18,418 - ERROR - Error processing request: Expected 2D array, got 1D array instead:
+array=[nan].
+Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
+2024-12-18 23:27:18,419 - INFO - 127.0.0.1 - - [18/Dec/2024 23:27:18] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2024-12-19 08:25:25,271 - INFO - Model and processor initialized successfully
+2024-12-19 08:25:25,318 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-19 08:25:25,318 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-19 08:25:51,002 - ERROR - Feature extraction failed: 'NoneType' object has no attribute 'values'
+2024-12-19 08:25:51,002 - ERROR - Error processing request: 'NoneType' object has no attribute 'values'
+2024-12-19 08:25:51,003 - INFO - 127.0.0.1 - - [19/Dec/2024 08:25:51] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2024-12-19 08:26:51,201 - INFO - Model and processor initialized successfully
+2024-12-19 08:26:51,224 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-19 08:26:51,224 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-19 08:26:57,780 - ERROR - Feature extraction failed: 'NoneType' object has no attribute 'values'
+2024-12-19 08:26:57,780 - ERROR - Error processing request: 'NoneType' object has no attribute 'values'
+2024-12-19 08:26:57,781 - INFO - 127.0.0.1 - - [19/Dec/2024 08:26:57] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2024-12-19 08:30:12,335 - INFO - Model and processor initialized successfully
+2024-12-19 08:30:12,352 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-19 08:30:12,353 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-19 08:30:19,843 - INFO - Successfully processed single prediction
+2024-12-19 08:30:19,844 - INFO - 127.0.0.1 - - [19/Dec/2024 08:30:19] "POST /predict HTTP/1.1" 200 -
+2024-12-19 08:33:21,456 - INFO - Successfully processed single prediction
+2024-12-19 08:33:21,467 - INFO - 127.0.0.1 - - [19/Dec/2024 08:33:21] "POST /predict HTTP/1.1" 200 -
+2024-12-19 08:34:09,181 - INFO - Successfully processed single prediction
+2024-12-19 08:34:09,182 - INFO - 127.0.0.1 - - [19/Dec/2024 08:34:09] "POST /predict HTTP/1.1" 200 -
