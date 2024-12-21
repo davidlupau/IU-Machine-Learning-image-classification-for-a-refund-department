@@ -201,31 +201,52 @@ def connect_dataset(CSV_PATH, IMAGES_DIR):
 
     return valid_df, missing_images
 
-def extract_combined_features(image_path):
+import numpy as np
+from PIL import Image
+from scipy import stats, ndimage
+from skimage import feature, measure
+from skimage.feature import graycomatrix, graycoprops
+import cv2
+
+def extract_enhanced_features(image):
     """
-    Extract shape, texture, edge, and color features from a single image.
+    Enhanced feature extraction with more sophisticated computer vision techniques.
 
     Parameters:
-    image_path (str): Path to the image file
+    image: PIL Image or path to image
 
     Returns:
-    dict: Dictionary containing all extracted features, or None if processing fails
+    dict: Dictionary containing all extracted features
     """
     try:
         # Load and prepare image
-        image = Image.open(image_path).convert('RGB')
+        if isinstance(image, str):
+            image = Image.open(image)
+        image = image.convert('RGB')
         image = image.resize((60, 80))
         img_array = np.array(image)
-        gray_image = np.mean(img_array, axis=2)
+        gray_image = np.mean(img_array, axis=2).astype(np.uint8)
 
-        # Extract shape features
+        # 1. Enhanced Shape Features
         shape_features = {
             'aspect_ratio': img_array.shape[0] / img_array.shape[1],
             'vertical_symmetry': np.mean(np.abs(gray_image - np.flipud(gray_image))),
             'horizontal_symmetry': np.mean(np.abs(gray_image - np.fliplr(gray_image)))
         }
 
-        # Extract texture features
+        # Add contour-based features
+        contours, _ = cv2.findContours(gray_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if contours:
+            main_contour = max(contours, key=cv2.contourArea)
+            shape_features.update({
+                'contour_area': cv2.contourArea(main_contour),
+                'contour_perimeter': cv2.arcLength(main_contour, True),
+                'contour_circularity': (4 * np.pi * cv2.contourArea(main_contour)) /
+                                     (cv2.arcLength(main_contour, True) ** 2) if cv2.arcLength(main_contour, True) > 0 else 0
+            })
+
+        # 2. Enhanced Texture Features
+        # Original LBP features
         lbp = feature.local_binary_pattern(gray_image, P=8, R=1)
         texture_features = {
             'texture_mean': lbp.mean(),
@@ -233,7 +254,17 @@ def extract_combined_features(image_path):
             'texture_uniformity': len(np.unique(lbp)) / len(lbp.flatten())
         }
 
-        # Extract edge features
+        # Add GLCM features
+        glcm = graycomatrix(gray_image, distances=[1], angles=[0], normed=True)
+        texture_features.update({
+            'glcm_contrast': graycoprops(glcm, 'contrast')[0, 0],
+            'glcm_homogeneity': graycoprops(glcm, 'homogeneity')[0, 0],
+            'glcm_energy': graycoprops(glcm, 'energy')[0, 0],
+            'glcm_correlation': graycoprops(glcm, 'correlation')[0, 0]
+        })
+
+        # 3. Enhanced Edge Features
+        # Original edge features
         sobel_h = ndimage.sobel(gray_image, axis=0)
         sobel_v = ndimage.sobel(gray_image, axis=1)
         edge_magnitude = np.sqrt(sobel_h**2 + sobel_v**2)
@@ -247,8 +278,17 @@ def extract_combined_features(image_path):
             'canny_edge_density': np.mean(canny_edges)
         }
 
-        # Extract color features
+        # Add edge direction histogram
+        edge_angles = np.arctan2(sobel_v, sobel_h) * 180 / np.pi
+        hist, _ = np.histogram(edge_angles[edge_magnitude > edge_magnitude.mean()],
+                             bins=8, range=(-180, 180))
+        for i, count in enumerate(hist):
+            edge_features[f'edge_direction_bin_{i}'] = count
+
+        # 4. Enhanced Color Features
         color_features = {}
+
+        # Original color features
         for idx, channel in enumerate(['red', 'green', 'blue']):
             channel_data = img_array[:,:,idx]
             color_features.update({
@@ -257,20 +297,33 @@ def extract_combined_features(image_path):
                 f'skew_{channel}': stats.skew(channel_data.flatten())
             })
 
-        # Add color ratios
-        color_features.update({
-            'red_green_ratio': color_features['mean_red'] / (color_features['mean_green'] + 1e-6),
-            'blue_green_ratio': color_features['mean_blue'] / (color_features['mean_green'] + 1e-6),
-            'color_variance': np.var([color_features['mean_red'],
-                                    color_features['mean_green'],
-                                    color_features['mean_blue']])
-        })
+        # Convert to HSV for additional color features
+        hsv_image = cv2.cvtColor(img_array, cv2.COLOR_RGB2HSV)
+        for idx, channel in enumerate(['hue', 'saturation', 'value']):
+            channel_data = hsv_image[:,:,idx]
+            color_features.update({
+                f'mean_{channel}': channel_data.mean(),
+                f'std_{channel}': channel_data.std()
+            })
+
+        # Color histogram features
+        for idx, channel in enumerate(['red', 'green', 'blue']):
+            hist, _ = np.histogram(img_array[:,:,idx], bins=8, range=(0, 256))
+            for bin_idx, count in enumerate(hist):
+                color_features[f'{channel}_hist_bin_{bin_idx}'] = count
 
         # Combine all features
-        return {**shape_features, **texture_features, **edge_features, **color_features}
+        all_features = {
+            **shape_features,
+            **texture_features,
+            **edge_features,
+            **color_features
+        }
+
+        return all_features
 
     except Exception as e:
-        print(f"Error processing {image_path}: {str(e)}")
+        print(f"Error in feature extraction: {str(e)}")
         return None
 
 def process_all_images(valid_data):
@@ -296,7 +349,7 @@ def process_all_images(valid_data):
     # Process each image with progress bar
     for idx, image_path in enumerate(tqdm(image_paths, desc="Extracting features")):
         try:
-            features = extract_combined_features(image_path)
+            features = extract_enhanced_features(image_path)
 
             if features is not None:
                 # Add image ID and category

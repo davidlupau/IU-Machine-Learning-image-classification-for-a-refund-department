@@ -48,3 +48,75 @@ Reshape your data either using array.reshape(-1, 1) if your data has a single fe
 2024-12-19 08:33:21,467 - INFO - 127.0.0.1 - - [19/Dec/2024 08:33:21] "POST /predict HTTP/1.1" 200 -
 2024-12-19 08:34:09,181 - INFO - Successfully processed single prediction
 2024-12-19 08:34:09,182 - INFO - 127.0.0.1 - - [19/Dec/2024 08:34:09] "POST /predict HTTP/1.1" 200 -
+2024-12-21 22:32:06,982 - INFO - Model and processor initialized successfully
+2024-12-21 22:32:07,171 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-21 22:32:07,171 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-21 22:32:14,817 - ERROR - Prediction failed: X has 23 features, but RandomForestClassifier is expecting 65 features as input.
+2024-12-21 22:32:14,818 - ERROR - Error processing request: X has 23 features, but RandomForestClassifier is expecting 65 features as input.
+2024-12-21 22:32:14,818 - INFO - 127.0.0.1 - - [21/Dec/2024 22:32:14] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2024-12-21 22:33:29,859 - INFO - Model and processor initialized successfully
+2024-12-21 22:33:29,913 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-21 22:33:29,913 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-21 22:33:42,852 - ERROR - Prediction failed: X has 23 features, but RandomForestClassifier is expecting 65 features as input.
+2024-12-21 22:33:42,853 - ERROR - Error processing request: X has 23 features, but RandomForestClassifier is expecting 65 features as input.
+2024-12-21 22:33:42,853 - INFO - 127.0.0.1 - - [21/Dec/2024 22:33:42] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2024-12-21 22:42:21,434 - INFO - Model and processor initialized successfully
+2024-12-21 22:42:21,513 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-21 22:42:21,513 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-21 22:43:05,102 - ERROR - Prediction failed: X has 23 features, but RandomForestClassifier is expecting 65 features as input.
+2024-12-21 22:43:05,102 - ERROR - Error processing request: X has 23 features, but RandomForestClassifier is expecting 65 features as input.
+2024-12-21 22:43:05,103 - INFO - 127.0.0.1 - - [21/Dec/2024 22:43:05] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2024-12-21 22:50:20,778 - INFO - Model and processor initialized successfully
+2024-12-21 22:50:20,859 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-21 22:50:20,859 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-21 22:50:50,872 - INFO - Number of features extracted: 65
+2024-12-21 22:50:50,872 - INFO - Feature names: ['aspect_ratio', 'vertical_symmetry', 'horizontal_symmetry', 'contour_area', 'contour_perimeter', 'contour_circularity', 'texture_mean', 'texture_var', 'texture_uniformity', 'glcm_contrast', 'glcm_homogeneity', 'glcm_energy', 'glcm_correlation', 'edge_density', 'edge_variance', 'horizontal_edges', 'vertical_edges', 'canny_edge_density', 'edge_direction_bin_0', 'edge_direction_bin_1', 'edge_direction_bin_2', 'edge_direction_bin_3', 'edge_direction_bin_4', 'edge_direction_bin_5', 'edge_direction_bin_6', 'edge_direction_bin_7', 'mean_red', 'std_red', 'skew_red', 'mean_green', 'std_green', 'skew_green', 'mean_blue', 'std_blue', 'skew_blue', 'mean_hue', 'std_hue', 'mean_saturation', 'std_saturation', 'mean_value', 'std_value', 'red_hist_bin_0', 'red_hist_bin_1', 'red_hist_bin_2', 'red_hist_bin_3', 'red_hist_bin_4', 'red_hist_bin_5', 'red_hist_bin_6', 'red_hist_bin_7', 'green_hist_bin_0', 'green_hist_bin_1', 'green_hist_bin_2', 'green_hist_bin_3', 'green_hist_bin_4', 'green_hist_bin_5', 'green_hist_bin_6', 'green_hist_bin_7', 'blue_hist_bin_0', 'blue_hist_bin_1', 'blue_hist_bin_2', 'blue_hist_bin_3', 'blue_hist_bin_4', 'blue_hist_bin_5', 'blue_hist_bin_6', 'blue_hist_bin_7']
+2024-12-21 22:50:50,872 - INFO - Feature array shape: (1, 65)
+2024-12-21 22:50:50,874 - ERROR - Prediction failed: Input X contains infinity or a value too large for dtype('float32').
+2024-12-21 22:50:50,874 - ERROR - Error processing request: Input X contains infinity or a value too large for dtype('float32').
+2024-12-21 22:50:50,874 - INFO - 127.0.0.1 - - [21/Dec/2024 22:50:50] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2024-12-21 22:52:41,321 - INFO - Model and processor initialized successfully
+2024-12-21 22:52:41,393 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-21 22:52:41,393 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-21 22:52:48,499 - INFO - Number of features extracted: 65
+2024-12-21 22:52:48,499 - INFO - Feature names: ['aspect_ratio', 'vertical_symmetry', 'horizontal_symmetry', 'contour_area', 'contour_perimeter', 'contour_circularity', 'texture_mean', 'texture_var', 'texture_uniformity', 'glcm_contrast', 'glcm_homogeneity', 'glcm_energy', 'glcm_correlation', 'edge_density', 'edge_variance', 'horizontal_edges', 'vertical_edges', 'canny_edge_density', 'edge_direction_bin_0', 'edge_direction_bin_1', 'edge_direction_bin_2', 'edge_direction_bin_3', 'edge_direction_bin_4', 'edge_direction_bin_5', 'edge_direction_bin_6', 'edge_direction_bin_7', 'mean_red', 'std_red', 'skew_red', 'mean_green', 'std_green', 'skew_green', 'mean_blue', 'std_blue', 'skew_blue', 'mean_hue', 'std_hue', 'mean_saturation', 'std_saturation', 'mean_value', 'std_value', 'red_hist_bin_0', 'red_hist_bin_1', 'red_hist_bin_2', 'red_hist_bin_3', 'red_hist_bin_4', 'red_hist_bin_5', 'red_hist_bin_6', 'red_hist_bin_7', 'green_hist_bin_0', 'green_hist_bin_1', 'green_hist_bin_2', 'green_hist_bin_3', 'green_hist_bin_4', 'green_hist_bin_5', 'green_hist_bin_6', 'green_hist_bin_7', 'blue_hist_bin_0', 'blue_hist_bin_1', 'blue_hist_bin_2', 'blue_hist_bin_3', 'blue_hist_bin_4', 'blue_hist_bin_5', 'blue_hist_bin_6', 'blue_hist_bin_7']
+2024-12-21 22:52:48,499 - INFO - Feature array shape: (1, 65)
+2024-12-21 22:52:48,501 - ERROR - Prediction failed: Input X contains infinity or a value too large for dtype('float32').
+2024-12-21 22:52:48,501 - ERROR - Error processing request: Input X contains infinity or a value too large for dtype('float32').
+2024-12-21 22:52:48,502 - INFO - 127.0.0.1 - - [21/Dec/2024 22:52:48] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2024-12-21 23:25:12,585 - INFO - Model and processor initialized successfully
+2024-12-21 23:25:12,764 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-21 23:25:12,764 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-21 23:25:25,408 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-21 23:25:25,530 - INFO - Successfully processed single prediction
+2024-12-21 23:25:25,531 - INFO - 127.0.0.1 - - [21/Dec/2024 23:25:25] "POST /predict HTTP/1.1" 200 -
+2024-12-21 23:35:13,357 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-21 23:35:13,411 - INFO - Successfully processed single prediction
+2024-12-21 23:35:13,413 - INFO - 127.0.0.1 - - [21/Dec/2024 23:35:13] "POST /predict HTTP/1.1" 200 -
+2024-12-21 23:36:29,052 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-21 23:36:29,086 - INFO - Successfully processed single prediction
+2024-12-21 23:36:29,088 - INFO - 127.0.0.1 - - [21/Dec/2024 23:36:29] "POST /predict HTTP/1.1" 200 -
+2024-12-21 23:37:13,288 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-21 23:37:13,320 - INFO - Successfully processed single prediction
+2024-12-21 23:37:13,323 - INFO - 127.0.0.1 - - [21/Dec/2024 23:37:13] "POST /predict HTTP/1.1" 200 -
+2024-12-21 23:38:37,143 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-21 23:38:37,162 - INFO - Successfully processed single prediction
+2024-12-21 23:38:37,162 - INFO - 127.0.0.1 - - [21/Dec/2024 23:38:37] "POST /predict HTTP/1.1" 200 -

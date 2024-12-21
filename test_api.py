@@ -7,7 +7,7 @@ import os
 def test_api():
     try:
         # First, verify the image exists
-        image_path = "Dataset/images/1529.jpg"
+        image_path = "Dataset/images/18461.jpg"
         if not os.path.exists(image_path):
             print(f"Error: Image not found at {image_path}")
             return
