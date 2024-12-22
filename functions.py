@@ -208,6 +208,13 @@ from skimage import feature, measure
 from skimage.feature import graycomatrix, graycoprops
 import cv2
 
+import numpy as np
+from PIL import Image
+import cv2
+from skimage import feature
+from scipy import stats, ndimage
+from skimage.feature import graycomatrix, graycoprops
+
 def extract_enhanced_features(image):
     """
     Enhanced feature extraction with more sophisticated computer vision techniques.
@@ -231,7 +238,10 @@ def extract_enhanced_features(image):
         shape_features = {
             'aspect_ratio': img_array.shape[0] / img_array.shape[1],
             'vertical_symmetry': np.mean(np.abs(gray_image - np.flipud(gray_image))),
-            'horizontal_symmetry': np.mean(np.abs(gray_image - np.fliplr(gray_image)))
+            'horizontal_symmetry': np.mean(np.abs(gray_image - np.fliplr(gray_image))),
+            'diagonal_symmetry': np.mean(np.abs(gray_image - np.rot90(gray_image))),
+            'quadrant_symmetry': np.mean([np.abs(gray_image[:gray_image.shape[0]//2, :gray_image.shape[1]//2] -
+                                        gray_image[gray_image.shape[0]//2:, gray_image.shape[1]//2:])])
         }
 
         # Add contour-based features
@@ -246,7 +256,7 @@ def extract_enhanced_features(image):
             })
 
         # 2. Enhanced Texture Features
-        # Original LBP features
+        # LBP features
         lbp = feature.local_binary_pattern(gray_image, P=8, R=1)
         texture_features = {
             'texture_mean': lbp.mean(),
@@ -254,17 +264,18 @@ def extract_enhanced_features(image):
             'texture_uniformity': len(np.unique(lbp)) / len(lbp.flatten())
         }
 
-        # Add GLCM features
-        glcm = graycomatrix(gray_image, distances=[1], angles=[0], normed=True)
-        texture_features.update({
-            'glcm_contrast': graycoprops(glcm, 'contrast')[0, 0],
-            'glcm_homogeneity': graycoprops(glcm, 'homogeneity')[0, 0],
-            'glcm_energy': graycoprops(glcm, 'energy')[0, 0],
-            'glcm_correlation': graycoprops(glcm, 'correlation')[0, 0]
-        })
+        # Enhanced GLCM features with multiple angles
+        angles = [0, 45, 90, 135]
+        glcm = graycomatrix(gray_image, distances=[1, 2], angles=angles, normed=True)
+        for angle_idx, angle in enumerate(angles):
+            texture_features.update({
+                f'glcm_contrast_{angle}': graycoprops(glcm, 'contrast')[0, angle_idx],
+                f'glcm_homogeneity_{angle}': graycoprops(glcm, 'homogeneity')[0, angle_idx],
+                f'glcm_energy_{angle}': graycoprops(glcm, 'energy')[0, angle_idx],
+                f'glcm_correlation_{angle}': graycoprops(glcm, 'correlation')[0, angle_idx]
+            })
 
         # 3. Enhanced Edge Features
-        # Original edge features
         sobel_h = ndimage.sobel(gray_image, axis=0)
         sobel_v = ndimage.sobel(gray_image, axis=1)
         edge_magnitude = np.sqrt(sobel_h**2 + sobel_v**2)
@@ -275,35 +286,50 @@ def extract_enhanced_features(image):
             'edge_variance': np.var(edge_magnitude),
             'horizontal_edges': np.mean(np.abs(sobel_h)),
             'vertical_edges': np.mean(np.abs(sobel_v)),
-            'canny_edge_density': np.mean(canny_edges)
+            'canny_edge_density': np.mean(canny_edges),
+            'edge_magnitude_mean': np.mean(edge_magnitude),
+            'edge_magnitude_std': np.std(edge_magnitude)
         }
 
-        # Add edge direction histogram
+        # Enhanced edge direction histogram
         edge_angles = np.arctan2(sobel_v, sobel_h) * 180 / np.pi
         hist, _ = np.histogram(edge_angles[edge_magnitude > edge_magnitude.mean()],
-                             bins=8, range=(-180, 180))
+                             bins=12, range=(-180, 180))
         for i, count in enumerate(hist):
             edge_features[f'edge_direction_bin_{i}'] = count
+        edge_features['edge_direction_entropy'] = stats.entropy(hist + 1)
 
         # 4. Enhanced Color Features
         color_features = {}
 
-        # Original color features
+        # RGB features
         for idx, channel in enumerate(['red', 'green', 'blue']):
             channel_data = img_array[:,:,idx]
             color_features.update({
                 f'mean_{channel}': channel_data.mean(),
                 f'std_{channel}': channel_data.std(),
-                f'skew_{channel}': stats.skew(channel_data.flatten())
+                f'skew_{channel}': stats.skew(channel_data.flatten()),
+                f'kurtosis_{channel}': stats.kurtosis(channel_data.flatten())
             })
 
-        # Convert to HSV for additional color features
+        # HSV features
         hsv_image = cv2.cvtColor(img_array, cv2.COLOR_RGB2HSV)
         for idx, channel in enumerate(['hue', 'saturation', 'value']):
             channel_data = hsv_image[:,:,idx]
             color_features.update({
                 f'mean_{channel}': channel_data.mean(),
-                f'std_{channel}': channel_data.std()
+                f'std_{channel}': channel_data.std(),
+                f'kurtosis_{channel}': stats.kurtosis(channel_data.flatten())
+            })
+
+        # LAB color space features
+        lab_image = cv2.cvtColor(img_array, cv2.COLOR_RGB2LAB)
+        for idx, channel in enumerate(['l', 'a', 'b']):
+            channel_data = lab_image[:,:,idx]
+            color_features.update({
+                f'mean_{channel}': np.mean(channel_data),
+                f'std_{channel}': np.std(channel_data),
+                f'kurtosis_{channel}': stats.kurtosis(channel_data.flatten())
             })
 
         # Color histogram features
