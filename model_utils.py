@@ -7,7 +7,7 @@ from scipy import stats, ndimage
 from skimage import feature
 
 class ImageProcessor:
-    def __init__(self, model_path='enhanced_random_forest_model.joblib'):
+    def __init__(self, model_path='random_forest_model_V3.joblib'):
         self.model = joblib.load(model_path)
         self.logger = logging.getLogger(__name__)
 

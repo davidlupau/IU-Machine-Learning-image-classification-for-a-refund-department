@@ -120,3 +120,33 @@ Reshape your data either using array.reshape(-1, 1) if your data has a single fe
 2024-12-21 23:38:37,143 - INFO - Cleaned feature array shape: (1, 65)
 2024-12-21 23:38:37,162 - INFO - Successfully processed single prediction
 2024-12-21 23:38:37,162 - INFO - 127.0.0.1 - - [21/Dec/2024 23:38:37] "POST /predict HTTP/1.1" 200 -
+2024-12-22 11:05:44,294 - INFO - Model and processor initialized successfully
+2024-12-22 11:05:46,776 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-22 11:05:46,776 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-22 11:06:02,978 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-22 11:06:03,028 - INFO - Successfully processed single prediction
+2024-12-22 11:06:03,029 - INFO - 127.0.0.1 - - [22/Dec/2024 11:06:03] "POST /predict HTTP/1.1" 200 -
+2024-12-22 11:06:48,664 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-22 11:06:48,691 - INFO - Successfully processed single prediction
+2024-12-22 11:06:48,691 - INFO - 127.0.0.1 - - [22/Dec/2024 11:06:48] "POST /predict HTTP/1.1" 200 -
+2024-12-22 11:07:06,615 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-22 11:07:06,682 - INFO - Successfully processed single prediction
+2024-12-22 11:07:06,683 - INFO - 127.0.0.1 - - [22/Dec/2024 11:07:06] "POST /predict HTTP/1.1" 200 -
+2024-12-22 11:08:02,565 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-22 11:08:02,582 - INFO - Successfully processed single prediction
+2024-12-22 11:08:02,582 - INFO - 127.0.0.1 - - [22/Dec/2024 11:08:02] "POST /predict HTTP/1.1" 200 -
+2024-12-22 11:08:22,891 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-22 11:08:22,970 - INFO - Successfully processed single prediction
+2024-12-22 11:08:22,971 - INFO - 127.0.0.1 - - [22/Dec/2024 11:08:22] "POST /predict HTTP/1.1" 200 -
+2024-12-22 14:05:31,867 - INFO - Model and processor initialized successfully
+2024-12-22 14:05:31,902 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.161:5001
+2024-12-22 14:05:31,902 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-22 14:07:47,477 - INFO - Cleaned feature array shape: (1, 65)
+2024-12-22 14:07:47,525 - INFO - Successfully processed single prediction
+2024-12-22 14:07:47,526 - INFO - 127.0.0.1 - - [22/Dec/2024 14:07:47] "POST /predict HTTP/1.1" 200 -

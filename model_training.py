@@ -1,6 +1,6 @@
 from functions import analyze_dataset, prepare_dataset, connect_dataset, process_all_images, extract_enhanced_features
 import os
-import pandas as pd
+from sklearn.model_selection import GridSearchCV
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -69,15 +69,45 @@ def main():
                     X, y, test_size=0.2, random_state=42, stratify=y
                 )
 
-                rf_classifier = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
-                rf_classifier.fit(X_train, y_train)
+                # Define parameter grid for search
+                print("\nDefining parameter grid for GridSearchCV...")
+                param_grid = {
+                    'n_estimators': [100, 200, 300],
+                    'max_depth': [10, 20, 30, None],
+                    'min_samples_split': [2, 5, 10],
+                    'min_samples_leaf': [1, 2, 4]
+                }
 
-                # Get predictions
+                # Create base model
+                rf_base = RandomForestClassifier(random_state=42, n_jobs=-1)
+
+                # Create GridSearchCV object
+                print("\nStarting GridSearchCV...")
+                grid_search = GridSearchCV(
+                    rf_base,
+                    param_grid,
+                    cv=5,
+                    scoring='accuracy',
+                    n_jobs=-1,
+                    verbose=2  # Add verbosity to see progress
+                )
+
+                # Fit grid search
+                grid_search.fit(X_train, y_train)
+
+                # Print results
+                print("\nBest parameters found:")
+                print(grid_search.best_params_)
+                print("\nBest cross-validation score:")
+                print(f"{grid_search.best_score_:.4f}")
+
+                # Use the best model for predictions
+                rf_classifier = grid_search.best_estimator_
                 y_pred = rf_classifier.predict(X_test)
                 y_pred_proba = rf_classifier.predict_proba(X_test)
 
                 # Print metrics
-                print("\nBasic Classification Metrics:")
+                print("\nTest Set Performance Metrics:")
                 print(f"Accuracy: {accuracy_score(y_test, y_pred):.4f}")
                 print(f"Macro Precision: {precision_score(y_test, y_pred, average='macro'):.4f}")
                 print(f"Macro Recall: {recall_score(y_test, y_pred, average='macro'):.4f}")
@@ -127,7 +157,7 @@ def main():
 
                 # Save the model
                 print("\nSaving the enhanced model...")
-                joblib.dump(rf_classifier, 'enhanced_random_forest_model.joblib')
+                joblib.dump(rf_classifier, 'random_forest_model_V3.joblib')
                 print("Model saved successfully!")
             else:
                 print("Feature matrix creation failed")
