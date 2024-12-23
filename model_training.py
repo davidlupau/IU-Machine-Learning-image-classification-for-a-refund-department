@@ -157,7 +157,7 @@ def main():
 
                 # Save the model
                 print("\nSaving the enhanced model...")
-                joblib.dump(rf_classifier, 'random_forest_model_V3.joblib')
+                joblib.dump(rf_classifier, 'random_forest_model.joblib')
                 print("Model saved successfully!")
             else:
                 print("Feature matrix creation failed")

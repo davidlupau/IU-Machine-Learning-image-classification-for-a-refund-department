@@ -239,7 +239,7 @@ def extract_enhanced_features(image):
             'aspect_ratio': img_array.shape[0] / img_array.shape[1],
             'vertical_symmetry': np.mean(np.abs(gray_image - np.flipud(gray_image))),
             'horizontal_symmetry': np.mean(np.abs(gray_image - np.fliplr(gray_image))),
-            'diagonal_symmetry': np.mean(np.abs(gray_image - np.rot90(gray_image))),
+            'diagonal_symmetry': np.mean(np.abs(gray_image - np.rot90(np.rot90(gray_image)))),
             'quadrant_symmetry': np.mean([np.abs(gray_image[:gray_image.shape[0]//2, :gray_image.shape[1]//2] -
                                         gray_image[gray_image.shape[0]//2:, gray_image.shape[1]//2:])])
         }
