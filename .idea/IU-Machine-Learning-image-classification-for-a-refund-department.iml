@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.12 virtualenv at ~/Library/CloudStorage/OneDrive-IUInternationalUniversityofAppliedSciences/_Modules/3rd semester/18. From Model to Production Environment/IU-Machine-Learning-image-classification-for-a-refund-department/.venv" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.12 (IU-Machine-Learning-image-classification-for-a-refund-department)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
