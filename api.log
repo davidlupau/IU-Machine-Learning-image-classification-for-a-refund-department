@@ -168,3 +168,25 @@ Reshape your data either using array.reshape(-1, 1) if your data has a single fe
 2024-12-23 09:58:20,127 - INFO - Cleaned feature array shape: (1, 101)
 2024-12-23 09:58:20,166 - INFO - Successfully processed single prediction
 2024-12-23 09:58:20,166 - INFO - 127.0.0.1 - - [23/Dec/2024 09:58:20] "POST /predict HTTP/1.1" 200 -
+2024-12-26 21:21:31,905 - ERROR - Failed to initialize model: [Errno 2] No such file or directory: 'enhanced_random_forest_model.joblib'
+2024-12-26 21:29:56,221 - INFO - Model and processor initialized successfully
+2024-12-26 21:29:56,496 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.125:5001
+2024-12-26 21:29:56,496 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-26 21:31:28,375 - INFO - Cleaned feature array shape: (1, 101)
+2024-12-26 21:31:28,420 - INFO - Successfully processed single prediction
+2024-12-26 21:31:28,420 - INFO - 127.0.0.1 - - [26/Dec/2024 21:31:28] "POST /predict HTTP/1.1" 200 -
+2024-12-26 21:40:34,163 - INFO - Cleaned feature array shape: (1, 101)
+2024-12-26 21:40:34,192 - INFO - Successfully processed single prediction
+2024-12-26 21:40:34,193 - INFO - 127.0.0.1 - - [26/Dec/2024 21:40:34] "POST /predict HTTP/1.1" 200 -
+2024-12-26 21:42:50,798 - INFO - Cleaned feature array shape: (1, 101)
+2024-12-26 21:42:50,827 - INFO - Successfully processed single prediction
+2024-12-26 21:42:50,827 - INFO - 127.0.0.1 - - [26/Dec/2024 21:42:50] "POST /predict HTTP/1.1" 200 -
+2024-12-26 21:55:40,481 - INFO - Cleaned feature array shape: (1, 101)
+2024-12-26 21:55:40,538 - INFO - Successfully processed single prediction
+2024-12-26 21:55:40,538 - INFO - 127.0.0.1 - - [26/Dec/2024 21:55:40] "POST /predict HTTP/1.1" 200 -
+2024-12-26 21:56:18,402 - INFO - Cleaned feature array shape: (1, 101)
+2024-12-26 21:56:18,485 - INFO - Successfully processed single prediction
+2024-12-26 21:56:18,485 - INFO - 127.0.0.1 - - [26/Dec/2024 21:56:18] "POST /predict HTTP/1.1" 200 -

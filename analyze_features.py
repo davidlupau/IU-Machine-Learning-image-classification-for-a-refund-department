@@ -30,7 +30,7 @@ def analyze_feature_importance(rf_classifier, feature_names, top_n=15):
 
 if __name__ == "__main__":
     # Load the trained model
-    rf_classifier = joblib.load('random_forest_model_V3.joblib')
+    rf_classifier = joblib.load('random_forest_model.joblib')
 
     # Load feature matrix to get feature names
     df_feature_matrix = pd.read_csv('final_feature_matrix.csv')

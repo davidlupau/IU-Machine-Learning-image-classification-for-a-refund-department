@@ -6,8 +6,9 @@ from functions import extract_enhanced_features
 from scipy import stats, ndimage
 from skimage import feature
 
+
 class ImageProcessor:
-    def __init__(self, model_path='random_forest_model.joblib'):
+    def __init__(self, model_path='random_forest_model.joblib'):  # Updated model name
         self.model = joblib.load(model_path)
         self.logger = logging.getLogger(__name__)
 
@@ -26,12 +27,19 @@ class ImageProcessor:
             features = list(features_dict.values())
             features = np.array(features).reshape(1, -1)
 
-            # Clean the features - handle infinities and large values
+            # Enhanced cleaning steps to match training
             features = np.nan_to_num(features, nan=0.0, posinf=0.0, neginf=0.0)
 
-            # Log the cleaned features shape
-            self.logger.info(f"Cleaned feature array shape: {features.shape}")
+            # Clip values to reasonable ranges
+            # Note: You might want to store these bounds during training
+            # For now, using simple statistical bounds
+            mean = np.mean(features)
+            std = np.std(features)
+            lower_bound = mean - 3 * std
+            upper_bound = mean + 3 * std
+            features = np.clip(features, lower_bound, upper_bound)
 
+            self.logger.info(f"Cleaned feature array shape: {features.shape}")
             return features
 
         except Exception as e:
@@ -47,6 +55,11 @@ class ImageProcessor:
                 str(class_name): float(prob)
                 for class_name, prob in zip(self.model.classes_, probabilities)
             }
+
+            # Sort predictions by probability
+            predictions = dict(sorted(predictions.items(),
+                                      key=lambda item: item[1],
+                                      reverse=True))
 
             return predictions
 

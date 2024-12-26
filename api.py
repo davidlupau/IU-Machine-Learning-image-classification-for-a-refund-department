@@ -25,10 +25,14 @@ except Exception as e:
     logging.error(f"Failed to initialize model: {str(e)}")
     raise
 
+
 @app.route('/health', methods=['GET'])
 def health_check():
     """Simple endpoint to verify the API is running."""
-    return jsonify({'status': 'healthy', 'timestamp': datetime.now().isoformat()})
+    return jsonify({'status': 'healthy',
+                    'timestamp': datetime.now().isoformat(),
+                    'model_info': 'Enhanced Random Forest with 21 categories'})
+
 
 @app.route('/predict', methods=['POST'])
 def predict_single():
@@ -41,6 +45,9 @@ def predict_single():
         if not request.json or 'image' not in request.json:
             return jsonify({'error': 'No image provided'}), 400
 
+        # Get confidence threshold from request or use default
+        confidence_threshold = request.json.get('confidence_threshold', 0.3)
+
         # Decode and load image
         image_data = base64.b64decode(request.json['image'])
         image = Image.open(io.BytesIO(image_data))
@@ -49,10 +56,19 @@ def predict_single():
         features = processor.extract_features(image)
         predictions = processor.predict(features)
 
+        # Filter predictions by confidence threshold
+        filtered_predictions = {
+            category: prob
+            for category, prob in predictions.items()
+            if prob >= confidence_threshold
+        }
+
         # Create response
         response = {
-            'predictions': predictions,
-            'timestamp': datetime.now().isoformat()
+            'predictions': filtered_predictions,
+            'confidence_threshold': confidence_threshold,
+            'timestamp': datetime.now().isoformat(),
+            'all_predictions': predictions  # Optional: include all predictions
         }
 
         logging.info("Successfully processed single prediction")
@@ -61,6 +77,7 @@ def predict_single():
     except Exception as e:
         logging.error(f"Error processing request: {str(e)}")
         return jsonify({'error': str(e)}), 500
+
 
 @app.route('/predict/batch', methods=['POST'])
 def predict_batch():
@@ -73,6 +90,8 @@ def predict_batch():
         if not request.json or 'images' not in request.json:
             return jsonify({'error': 'No images provided'}), 400
 
+        confidence_threshold = request.json.get('confidence_threshold', 0.3)
+
         # Process each image
         results = []
         for image_data in request.json['images']:
@@ -80,12 +99,24 @@ def predict_batch():
             image = Image.open(io.BytesIO(base64.b64decode(image_data)))
             features = processor.extract_features(image)
             predictions = processor.predict(features)
-            results.append(predictions)
+
+            # Filter predictions by confidence threshold
+            filtered_predictions = {
+                category: prob
+                for category, prob in predictions.items()
+                if prob >= confidence_threshold
+            }
+
+            results.append({
+                'filtered_predictions': filtered_predictions,
+                'all_predictions': predictions  # Optional
+            })
 
         # Create response
         response = {
             'predictions': results,
             'batch_size': len(results),
+            'confidence_threshold': confidence_threshold,
             'timestamp': datetime.now().isoformat()
         }
 
@@ -95,6 +126,7 @@ def predict_batch():
     except Exception as e:
         logging.error(f"Error processing batch request: {str(e)}")
         return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
