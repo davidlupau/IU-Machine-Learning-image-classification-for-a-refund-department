@@ -15,7 +15,7 @@ Dataset/
 └── styles.csv
 ```
 ## 1. Explore dataset.
-See intructions [here](notebooks/01_data_exploration.ipynb)
+See instructions [here](notebooks/01_data_exploration.ipynb)
 
 ## 2. Prepare dataset
 Run [prepare_dataset.py](prepare_dataset.py)
@@ -43,3 +43,5 @@ The model is saved as random_forest_model.joblib
 image_path = "Dataset/train_images/image_name.jpg"
 ```
 3. Run [test_api.py](test_api.py) to get predictions
+
+## 6. Set up batch processing
