@@ -1,13 +1,22 @@
 #!/bin/bash
+
+# Set error handling
 set -e
 
+# Get the directory where the script is located
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Navigate to project directory
 cd "$PROJECT_DIR"
 
-echo "Activating virtual environment..." >> "$PROJECT_DIR/batch_processing.log"
+# Activate virtual environment (assuming it's in project root)
 source ./venv/bin/activate
 
-echo "Running batch processing..." >> "$PROJECT_DIR/batch_processing.log"
-python3 batch_processing.py >> "$PROJECT_DIR/batch_processing.log" 2>&1
+# Run batch processing script
+python batch_processing.py >> batch_processing.log 2>&1
 
-echo "Batch processing completed at $(date)" >> "$PROJECT_DIR/batch_processing.log"
+# Add timestamp to log
+echo "Batch processing completed at $(date)" >> batch_processing.log
+
+# Send email notification
+echo "Batch processing completed on $(date)" | /usr/bin/mail -s "Batch Processing Report" david-patrick-philippe.lupau@iu-study.org
