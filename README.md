@@ -11,7 +11,7 @@ Key features:
 - Systematic data organization with separate directories for new, processed, and archived items
 - Detailed logging and error handling for production reliability
 
-![](/Users/davidlupau/kDrive/_IU/_Modules/3rd semester/18. From Model to Production Environment/System conceptual architecture.png)
+![image](https://github.com/user-attachments/assets/bd1f354a-8be0-452f-b722-2c74c9cebb08)
 
 - Dataset used : Retail Products Classification from Kaggle  https://www.kaggle.com/competitions/retail-products-classification/overview
 - Packages to install: refer to [requirements.txt](requirements.txt) 
