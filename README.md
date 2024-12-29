@@ -57,7 +57,7 @@ Run [model_training.py](model_training.py) and see this [notebook](notebooks/04_
 The model is saved as random_forest_model.joblib.
 
 ## 5. Model Deployment and API Implementation
-An overview of the process in available in [05_model_deployment-ipynb](05_model_deployment-ipynb) notebook
+An overview of the process in available in [05_model_deployment-ipynb](notebooks/05_model_deployment-ipynb) notebook
 1. Run api.py and wait for api to be active
 ```python
  * Serving Flask app 'api'
@@ -70,4 +70,4 @@ image_path = "Dataset/train_images/image_name.jpg"
 3. Run [test_api.py](test_api.py) to get predictions
 
 ## 6. Set up batch processing
-Create a cron job and automate batch processing by following the steps explained in [06_batch_processing.ipynb](06_batch_processing.ipynb)
+Create a cron job and automate batch processing by following the steps explained in [06_batch_processing.ipynb](notebooks/06_batch_processing.ipynb)
