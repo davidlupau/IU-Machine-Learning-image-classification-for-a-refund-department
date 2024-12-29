@@ -1,9 +1,12 @@
 # IU Machine Learning image classification for a refund department
  University project that involves image classification for a refund department
 
-Dataset used : Retail Products Classification from Kaggle  https://www.kaggle.com/competitions/retail-products-classification/overview
-Packages to install:
-- 
+- Dataset used : Retail Products Classification from Kaggle  https://www.kaggle.com/competitions/retail-products-classification/overview
+- Packages to install: refer to [requirements.txt](requirements.txt) and run the below code to install all of them
+```python
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
 ## Intructions
 Download the dataset, unzip it and save the content in a folder called Dataset using the names below

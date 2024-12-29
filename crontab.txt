@@ -1,1 +1,1 @@
-1 0 * * * cron_runner_script.sh 
+0 14 * * * cd "/Users/davidlupau/kDrive/_IU/_Modules/3rd semester/18. From Model to Production Environment/IU-Machine-Learning-image-classification-for-a-refund-department" && ./cron_runner_script.sh

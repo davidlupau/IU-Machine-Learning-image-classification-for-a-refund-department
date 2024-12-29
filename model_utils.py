@@ -3,60 +3,69 @@ from PIL import Image
 import joblib
 import logging
 from functions import extract_enhanced_features
-from scipy import stats, ndimage
-from skimage import feature
+import pandas as pd
 
 
 class ImageProcessor:
-    def __init__(self, model_path='random_forest_model.joblib'):  # Updated model name
-        self.model = joblib.load(model_path)
-        self.logger = logging.getLogger(__name__)
-
-    def extract_features(self, image):
+    def __init__(self, model_path='random_forest_model.joblib'):
+        """Initialize the image processor with the trained model"""
         try:
-            # Ensure image is RGB and correct size
-            if isinstance(image, str):
-                image = Image.open(image)
-            image = image.convert('RGB')
-            image = image.resize((60, 80))
+            self.model = joblib.load(model_path)
+            self.logger = logging.getLogger(__name__)
 
-            # Extract features using the enhanced function
-            features_dict = extract_enhanced_features(image)
+            # Load feature matrix to get column names
+            feature_matrix = pd.read_csv('final_feature_matrix.csv')
+            # Get feature columns (excluding 'image_id' and 'category')
+            self.feature_columns = [col for col in feature_matrix.columns
+                                    if col not in ['image_id', 'category']]
 
-            # Convert to array
-            features = list(features_dict.values())
-            features = np.array(features).reshape(1, -1)
+            self.logger.info(f"Loaded model and {len(self.feature_columns)} feature columns")
+        except Exception as e:
+            self.logger.error(f"Initialization failed: {str(e)}")
+            raise
 
-            # Enhanced cleaning steps to match training
-            features = np.nan_to_num(features, nan=0.0, posinf=0.0, neginf=0.0)
+    def extract_features(self, image_path):
+        """Extract features from an image using the same process as training"""
+        try:
+            # Extract features using the same function as training
+            features_dict = extract_enhanced_features(image_path)
 
-            # Clip values to reasonable ranges
-            # Note: You might want to store these bounds during training
-            # For now, using simple statistical bounds
-            mean = np.mean(features)
-            std = np.std(features)
-            lower_bound = mean - 3 * std
-            upper_bound = mean + 3 * std
-            features = np.clip(features, lower_bound, upper_bound)
+            if features_dict is None:
+                raise ValueError("Feature extraction returned None")
 
-            self.logger.info(f"Cleaned feature array shape: {features.shape}")
-            return features
+            # Convert to DataFrame with same columns as training
+            features_df = pd.DataFrame([features_dict])
+
+            # Select only the features used in training
+            features = features_df[self.feature_columns]
+
+            # Handle infinite and missing values as in training
+            features = features.replace([np.inf, -np.inf], np.nan)
+            features = features.fillna(features.mean())
+
+            # Convert to numpy array
+            features_array = features.values
+
+            self.logger.info(f"Successfully extracted {features_array.shape[1]} features")
+            return features_array
 
         except Exception as e:
             self.logger.error(f"Feature extraction failed: {str(e)}")
-            self.logger.error(f"Error type: {type(e)}")
             raise
 
     def predict(self, features):
+        """Make predictions using the trained model"""
         try:
+            # Get probability predictions
             probabilities = self.model.predict_proba(features)[0]
 
+            # Create dictionary of predictions
             predictions = {
                 str(class_name): float(prob)
                 for class_name, prob in zip(self.model.classes_, probabilities)
             }
 
-            # Sort predictions by probability
+            # Sort by probability
             predictions = dict(sorted(predictions.items(),
                                       key=lambda item: item[1],
                                       reverse=True))

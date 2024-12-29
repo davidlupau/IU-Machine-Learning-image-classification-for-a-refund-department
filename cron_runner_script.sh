@@ -1,10 +1,13 @@
 #!/bin/bash
+set -e
 
-# Activate virtual environment
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd "$PROJECT_DIR"
+
+echo "Activating virtual environment..." >> "$PROJECT_DIR/batch_processing.log"
 source ./venv/bin/activate
 
-# Run batch processing script
-python batch_processing.py
+echo "Running batch processing..." >> "$PROJECT_DIR/batch_processing.log"
+python3 batch_processing.py >> "$PROJECT_DIR/batch_processing.log" 2>&1
 
-# Send email notification
-echo "Batch processing completed on $(date)" | /usr/bin/mail -s "Batch Processing Report" david-patrick-philippe.lupau@iu-study.org
+echo "Batch processing completed at $(date)" >> "$PROJECT_DIR/batch_processing.log"
