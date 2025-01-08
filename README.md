@@ -1,6 +1,18 @@
-# IU Machine Learning image classification for a refund department
+# Automated Product Returns Classification System
+
+## Project Context
+This project was developed as part of the "From Model to Production Environment" module in the Bachelor of Science in Data Science program at IU International University of Applied Sciences. The module focuses on implementing machine learning solutions in production environments, bridging the gap between theoretical model development and practical application.
 
 ## Problem Statement
+An e-commerce platform specializing in sustainable products faces increasing challenges with returns processing as their business grows. The manual categorization of returned items has become a significant bottleneck, requiring unsustainable workforce expansion. This project implements a machine learning solution that automatically classifies returned products into 21 distinct categories using image analysis.
+The system features:
+- Automated image classification using Random Forest with 94% accuracy
+- RESTful API for both single-item and batch processing
+- Overnight batch processing capability for efficient returns handling
+- Confidence threshold filtering for reliable categorization
+- Comprehensive error handling and logging
+
+This solution aims to streamline the returns process, reduce manual sorting requirements, and enable efficient daily categorization of incoming returned items.
 
 ## Approach
 This project implements an automated image classification system for processing returned items in an e-commerce context. The system architecture follows a modular design with four main components: Data Ingestion, Processing, ML Pipeline, and Outputs Handling. New product images are collected in a designated directory and processed automatically through a scheduled cronjob. The processing pipeline includes batch handling and feature extraction, where important image characteristics such as color distributions, shapes, and textures are computed. These features are then fed into a trained Random Forest model for classification. The system outputs include timestamped CSV files containing classification results and an organized archive of processed images. This implementation emphasizes automation, scalability, and robust data management, making it suitable for production environments where consistent processing of returned items is required.
@@ -57,7 +69,7 @@ Run [model_training.py](model_training.py) and see this [notebook](notebooks/04_
 The model is saved as random_forest_model.joblib.
 
 ## 5. Model Deployment and API Implementation
-An overview of the process in available in [05_model_deployment-ipynb](notebooks/05_model_deployment-ipynb) notebook
+An overview of the process in available in [05_model_deployment.ipynb](notebooks/05_model_deployment.ipynb) notebook
 1. Run api.py and wait for api to be active
 ```python
  * Serving Flask app 'api'
