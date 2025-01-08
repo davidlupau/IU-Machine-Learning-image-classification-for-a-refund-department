@@ -9,7 +9,7 @@ PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # Navigate to project directory
 cd "$PROJECT_DIR"
 
-# Activate virtual environment (assuming it's in project root)
+# Activate virtual environment
 source ./venv/bin/activate
 
 # Run batch processing script
