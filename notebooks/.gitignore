@@ -1,0 +1,75 @@
+# ===============================================
+# Python Data Project .gitignore Template
+# Save this as .gitignore in your project root
+# ===============================================
+
+# macOS System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+*.pyc
+*.pyo
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDEs
+.idea/          # PyCharm
+.vscode/        # VS Code
+*.swp           # Vim
+*.swo           # Vim
+*.sublime-*     # Sublime Text
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Data Files (customize based on your project)
+# Uncomment lines you need:
+# *.csv
+# *.xlsx
+# *.parquet
+# data/raw/*
+# data/processed/*
+
+# Analysis Outputs (generated files)
+# Uncomment if you don't want to track outputs:
+# analysis_output/
+# outputs/
+# plots/
+# *.png
+# *.jpg
+# *.pdf
+
+# Logs
+*.log
+
+# Environment Variables
+.env
+.env.local
+
+# OS Generated
+Thumbs.db
+Desktop.ini
