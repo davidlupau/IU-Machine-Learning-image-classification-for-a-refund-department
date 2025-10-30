@@ -23,8 +23,6 @@ Key features:
 - Systematic data organization with separate directories for new, processed, and archived items
 - Detailed logging and error handling for production reliability
 
-![image](https://github.com/user-attachments/assets/bd1f354a-8be0-452f-b722-2c74c9cebb08)
-
 - Dataset used : [Retail Products Classification](https://www.kaggle.com/competitions/retail-products-classification/overview) from Kaggle
 - Packages to install: refer to [requirements.txt](requirements.txt) 
 
